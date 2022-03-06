@@ -1,13 +1,27 @@
 #!/bin/bash
 # a utility I made to to write messages to a file, along with a timestamp of when they were written
 # take textual input, prepend datetime format dd/mm hrs/min, write as a complete single line to a particular file
-if [ $1 = "-l" ]
+
+LOGFILE="/home/nmq-hyt/Projects/bash/logstamp/log"
+
+if [ $1 = "-log" ]
   then
     read logmsg
-    echo $(date +%d/%m@%H:%M) $logmsg >> /home/nmq-hyt/Projects/bash/logstamp/log
+    echo $(date +%d/%m@%H:%M) $logmsg >> $LOGFILE 
 fi
 
-if [ $1 = "-d" ]
+if [ $1 = "-disp" ]
 then
-    tail /home/nmq-hyt/Projects/bash/logstamp/log
+    cat $LOGFILE 
 fi
+
+if [ $1 = "-edit" ]
+then
+    vim $LOGFILE 
+fi
+
+if [ $1 = "-help" ]
+then
+	echo "logstamp: a little logging utility by nmq-hyt\n-log\tlog input to the file\n-disp\tdisplay the log file\n-help\tlist these helpful options"
+fi
+
